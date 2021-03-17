@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="GalleryCollectionViewCell" customModule="ImgurAPIDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="339" height="234"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="339" height="234"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qP-Wp-tsk">
+                        <rect key="frame" x="0.0" y="178" width="339" height="56"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="irJ-uh-XMp">
+                                <rect key="frame" x="0.0" y="0.0" width="339" height="56"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KbY-R6-NPU">
+                                        <rect key="frame" x="0.0" y="0.0" width="113" height="56"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="top" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xZd-Pe-ITJ">
+                                                <rect key="frame" x="10" y="19.5" width="93" height="17"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_icon" translatesAutoresizingMaskIntoConstraints="NO" id="9xR-QV-jLf">
+                                                        <rect key="frame" x="0.0" y="0.5" width="16" height="16"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="16" id="azB-li-Jhb"/>
+                                                            <constraint firstAttribute="height" constant="16" id="bQi-cg-9mb"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lblUpvotes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQK-oS-QK2">
+                                                        <rect key="frame" x="24" y="0.0" width="69" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" name="GalleryInfoTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="xZd-Pe-ITJ" firstAttribute="centerY" secondItem="KbY-R6-NPU" secondAttribute="centerY" id="d7Y-pM-IKo"/>
+                                            <constraint firstItem="xZd-Pe-ITJ" firstAttribute="centerX" secondItem="KbY-R6-NPU" secondAttribute="centerX" id="jo6-sS-Bqe"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jtu-Ql-qOi">
+                                        <rect key="frame" x="113" y="0.0" width="113" height="56"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="top" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="biW-HV-9Cv">
+                                                <rect key="frame" x="2" y="19.5" width="109.5" height="17"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comment_icon" translatesAutoresizingMaskIntoConstraints="NO" id="alA-lh-sVO">
+                                                        <rect key="frame" x="0.0" y="0.5" width="16" height="16"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="16" id="JJl-ht-6Rv"/>
+                                                            <constraint firstAttribute="height" constant="16" id="f2D-Wa-px2"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lblComments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgY-a4-nKl">
+                                                        <rect key="frame" x="24" y="0.0" width="85.5" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" name="GalleryInfoTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="biW-HV-9Cv" firstAttribute="centerX" secondItem="Jtu-Ql-qOi" secondAttribute="centerX" id="1kV-gA-KFo"/>
+                                            <constraint firstItem="biW-HV-9Cv" firstAttribute="centerY" secondItem="Jtu-Ql-qOi" secondAttribute="centerY" id="Rf3-6O-iOU"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gzq-xR-Kvs">
+                                        <rect key="frame" x="226" y="0.0" width="113" height="56"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="top" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Zg4-a2-fkl">
+                                                <rect key="frame" x="18" y="19.5" width="77.5" height="17"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="views_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Pcf-qa-7yb">
+                                                        <rect key="frame" x="0.0" y="0.5" width="16" height="16"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="16" id="k8O-Jq-KyN"/>
+                                                            <constraint firstAttribute="width" constant="16" id="v9d-EW-1Xu"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lblViews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJJ-51-rsg">
+                                                        <rect key="frame" x="24" y="0.0" width="53.5" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" name="GalleryInfoTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="Zg4-a2-fkl" firstAttribute="centerX" secondItem="Gzq-xR-Kvs" secondAttribute="centerX" id="8hy-z4-tQ0"/>
+                                            <constraint firstItem="Zg4-a2-fkl" firstAttribute="centerY" secondItem="Gzq-xR-Kvs" secondAttribute="centerY" id="wfZ-08-deA"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="GalleryInfoViewBackground"/>
+                        <color key="tintColor" red="0.17254901959999999" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="irJ-uh-XMp" secondAttribute="bottom" id="Nbb-fo-fbe"/>
+                            <constraint firstAttribute="height" constant="56" id="aEP-bl-l5S"/>
+                            <constraint firstItem="irJ-uh-XMp" firstAttribute="top" secondItem="1qP-Wp-tsk" secondAttribute="top" id="gL9-gs-9ja"/>
+                            <constraint firstItem="irJ-uh-XMp" firstAttribute="leading" secondItem="1qP-Wp-tsk" secondAttribute="leading" id="puH-dV-GGh"/>
+                            <constraint firstAttribute="trailing" secondItem="irJ-uh-XMp" secondAttribute="trailing" id="tFi-IE-zPU"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OUR-jq-yr6">
+                        <rect key="frame" x="0.0" y="0.0" width="339" height="182"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d42-22-fsf">
+                                <rect key="frame" x="0.0" y="0.0" width="339" height="182"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnq-mx-mKk">
+                                <rect key="frame" x="152" y="75" width="36" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="reload_icon"/>
+                                <connections>
+                                    <action selector="reloadGallery:" destination="gTV-IL-0wX" eventType="touchUpInside" id="hy1-L0-fFk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="TopGalleriesCollectionBackground"/>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" name="TopGalleriesCollectionBackground"/>
+            <constraints>
+                <constraint firstItem="1qP-Wp-tsk" firstAttribute="top" secondItem="OUR-jq-yr6" secondAttribute="bottom" constant="-4" id="5mt-t5-w88"/>
+                <constraint firstAttribute="bottom" secondItem="1qP-Wp-tsk" secondAttribute="bottom" id="BIc-8a-ABR"/>
+                <constraint firstItem="OUR-jq-yr6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="CKY-NS-VKe"/>
+                <constraint firstAttribute="trailing" secondItem="1qP-Wp-tsk" secondAttribute="trailing" id="QrS-K3-zTI"/>
+                <constraint firstItem="OUR-jq-yr6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="eUU-Fd-vmX"/>
+                <constraint firstItem="1qP-Wp-tsk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jsj-vx-T2N"/>
+                <constraint firstAttribute="trailing" secondItem="OUR-jq-yr6" secondAttribute="trailing" id="w6c-rs-ZHI"/>
+            </constraints>
+            <size key="customSize" width="339" height="234"/>
+            <connections>
+                <outlet property="commentsLbl" destination="LgY-a4-nKl" id="vhc-gA-ecW"/>
+                <outlet property="coverImage" destination="d42-22-fsf" id="ph4-sg-2pA"/>
+                <outlet property="galleryInfoView" destination="1qP-Wp-tsk" id="BnR-9J-xo5"/>
+                <outlet property="reloadGalleryBtn" destination="cnq-mx-mKk" id="LUW-iF-jsA"/>
+                <outlet property="upVotesLbl" destination="gQK-oS-QK2" id="kAM-2C-5Jd"/>
+                <outlet property="viewsLbl" destination="oJJ-51-rsg" id="SiH-gh-EDL"/>
+            </connections>
+            <point key="canvasLocation" x="-13.768115942028986" y="149.33035714285714"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="arrow_icon" width="16" height="16"/>
+        <image name="comment_icon" width="16" height="16"/>
+        <image name="reload_icon" width="36.458999633789062" height="32.375"/>
+        <image name="views_icon" width="19.297000885009766" height="13.156999588012695"/>
+        <namedColor name="GalleryInfoTextColor">
+            <color red="0.68599998950958252" green="0.68599998950958252" blue="0.68599998950958252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="GalleryInfoViewBackground">
+            <color red="0.27799999713897705" green="0.28999999165534973" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TopGalleriesCollectionBackground">
+            <color red="0.62699997425079346" green="0.62699997425079346" blue="0.62699997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
