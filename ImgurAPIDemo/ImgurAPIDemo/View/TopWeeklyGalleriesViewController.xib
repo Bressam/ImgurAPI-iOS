@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopWeeklyGalleriesViewController" customModule="ImgurAPIDemo" customModuleProvider="target">
             <connections>
+                <outlet property="titleLbl" destination="0gy-fb-BtN" id="2k8-69-0Bh"/>
+                <outlet property="topWeeklyGalleriesCollectionView" destination="8Q0-0g-5yN" id="4hf-Ck-H8G"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,6 +31,10 @@
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Vxs-5G-MtP"/>
+                        <outlet property="delegate" destination="-1" id="68H-qf-2Jo"/>
+                    </connections>
                 </collectionView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="titleLbl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gy-fb-BtN" userLabel="titleLbl">
                     <rect key="frame" x="18" y="108" width="98" height="36"/>
