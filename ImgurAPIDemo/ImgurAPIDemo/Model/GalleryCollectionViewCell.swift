@@ -51,11 +51,11 @@ class GalleryCollectionViewCell: UICollectionViewCell {
             loadedCoverImageWith(success: false)
         }
         
-        self.upVotesLbl.text = String(gallery.ups ?? 0)
-        self.viewsLbl.text = String(gallery.views ?? 0)
-        self.commentsLbl.text = String(gallery.commentCount ?? 0)
+        self.upVotesLbl.text = transformInMultipleK(from: gallery.ups ?? 0)
+        self.viewsLbl.text = transformInMultipleK(from: gallery.views ?? 0)
+        self.commentsLbl.text = transformInMultipleK(from: gallery.commentCount ?? 0)
     }
-
+    
     /**
      Set the collectionCell to state of correctly loaded cover image or not. If loaded successfully, cell will show the image.
         Otherwhse, it will show and reload button
@@ -68,6 +68,13 @@ class GalleryCollectionViewCell: UICollectionViewCell {
             self.reloadGalleryBtn.isHidden = false
             self.coverImage.isHidden = true
         }
+    }
+    
+    func transformInMultipleK(from value: Int) -> String {
+        let isBiggerThan1K = (value >= 1000)
+        let formattedValue = (isBiggerThan1K ? value/1000 : value)
+        let formattedString = String(formattedValue)
+        return (isBiggerThan1K ? formattedString + "K" : formattedString)
     }
     
     
