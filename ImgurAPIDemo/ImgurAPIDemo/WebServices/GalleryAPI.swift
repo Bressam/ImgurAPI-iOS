@@ -17,8 +17,17 @@ class GalleryAPI: NSObject {
     
     private var dispatchGroup: DispatchGroup = DispatchGroup()
     
+    
     //MARK: Requests
-    func getTopGalleriesFromLast(fromDateInterval dateInterval: DateIntervals, continueFromPage page: Int = 1, completion: @escaping(_ : Array<Gallery?>) -> Void) -> Void {
+    func getTopGalleriesFromLast(fromDateInterval dateInterval: DateIntervals, currentController controller: UIViewController, continueFromPage page: Int = 1, completion: @escaping(_ : Array<Gallery?>) -> Void) -> Void {
+        
+        //Add activity controller to controller who called service
+//        var spinner = SpinnerViewController()
+//        controller.addChild(spinner)
+//        spinner.view.frame = controller.view.frame
+//        controller.view.addSubview(spinner.view)
+//        spinner.didMove(toParent: controller)
+        
         //Fill all URL parameters and variables
         var urlWithParams : String = "https://api.imgur.com/3/gallery/{{section}}/{{sort}}/{{window}}/{{page}}?showViral={{showViral}}&mature={{showMature}}&album_previews={{albumPreviews}}"
         urlWithParams = urlWithParams.replacingOccurrences(of: "{{section}}", with: "top")
@@ -63,8 +72,8 @@ class GalleryAPI: NSObject {
                 self.dispatchGroup.leave()
                 if case .success(let image) = response.result {
                     //print("image downloaded: \(image)")
-                    //responseImageData = response.data //image.pngData()
-                    completion(response.data)
+                    completion(image.pngData())
+                    //completion(response.data)
                 }
             }
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181E6B2E2603EDD900025E15 /* GalleryRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E6B2D2603EDD900025E15 /* GalleryRefreshControl.swift */; };
 		1861C89B26028CD300D55F03 /* Gallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861C89A26028CD300D55F03 /* Gallery.swift */; };
 		1861C8A92602DAE700D55F03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861C8A82602DAE700D55F03 /* Constants.swift */; };
 		1861C8AE2602DC6100D55F03 /* GalleryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861C8AD2602DC6100D55F03 /* GalleryAPI.swift */; };
@@ -14,6 +15,7 @@
 		1865315426024198000CECA8 /* GalleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1865315226024198000CECA8 /* GalleryCollectionViewCell.xib */; };
 		188194442602F9750041A7AF /* GalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188194432602F9750041A7AF /* GalleryImage.swift */; };
 		1881944926030B460041A7AF /* GalleriesResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1881944826030B460041A7AF /* GalleriesResponseData.swift */; };
+		18AFFE3D2603E69300A650EA /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFFE3C2603E69300A650EA /* SpinnerView.swift */; };
 		18B077B52602E76900364B59 /* WebServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B077B42602E76900364B59 /* WebServiceConstants.swift */; };
 		18F4B00D2601817000F30CD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4B00C2601817000F30CD3 /* AppDelegate.swift */; };
 		18F4B00F2601817000F30CD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4B00E2601817000F30CD3 /* SceneDelegate.swift */; };
@@ -44,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		181E6B2D2603EDD900025E15 /* GalleryRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRefreshControl.swift; sourceTree = "<group>"; };
 		1840AC232602E08A009E9D75 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1840AC3F2602E1BA009E9D75 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1840AC522602E253009E9D75 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +59,7 @@
 		1865315226024198000CECA8 /* GalleryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCollectionViewCell.xib; sourceTree = "<group>"; };
 		188194432602F9750041A7AF /* GalleryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryImage.swift; sourceTree = "<group>"; };
 		1881944826030B460041A7AF /* GalleriesResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleriesResponseData.swift; sourceTree = "<group>"; };
+		18AFFE3C2603E69300A650EA /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		18B077962602E4DF00364B59 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B0779C2602E4E200364B59 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B077B42602E76900364B59 /* WebServiceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceConstants.swift; sourceTree = "<group>"; };
@@ -143,6 +147,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		18AFFE3B2603E5CB00A650EA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				18AFFE3C2603E69300A650EA /* SpinnerView.swift */,
+				181E6B2D2603EDD900025E15 /* GalleryRefreshControl.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		18F4B0002601817000F30CD3 = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +181,7 @@
 		18F4B00B2601817000F30CD3 /* ImgurAPIDemo */ = {
 			isa = PBXGroup;
 			children = (
+				18AFFE3B2603E5CB00A650EA /* Utils */,
 				1861C8A72602DA8800D55F03 /* WebServices */,
 				1865314C26019D38000CECA8 /* Model */,
 				1865314D26019D3F000CECA8 /* View */,
@@ -401,7 +415,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18AFFE3D2603E69300A650EA /* SpinnerView.swift in Sources */,
 				18B077B52602E76900364B59 /* WebServiceConstants.swift in Sources */,
+				181E6B2E2603EDD900025E15 /* GalleryRefreshControl.swift in Sources */,
 				18F4B04C2601827E00F30CD3 /* TopWeeklyGalleriesViewController.swift in Sources */,
 				1881944926030B460041A7AF /* GalleriesResponseData.swift in Sources */,
 				1861C89B26028CD300D55F03 /* Gallery.swift in Sources */,
