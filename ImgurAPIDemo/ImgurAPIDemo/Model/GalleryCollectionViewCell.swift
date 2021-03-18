@@ -21,7 +21,6 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     //MARK: Cell setup
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.setupCellData()
         self.setupCellLayout()
     }
     
@@ -40,8 +39,21 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     /**
      Configure all object data to its fields on cell
      */
-    func setupCellData() {
+    func setupCellData(gallery receivedGallery: Gallery?) {
+        guard let gallery = receivedGallery else {
+            return
+        }
         
+        if let coverImageData = gallery.coverImage, let loadedCoverImage = UIImage(data: coverImageData) {
+            loadedCoverImageWith(success: true)
+            self.coverImage.image = loadedCoverImage
+        } else {
+            loadedCoverImageWith(success: false)
+        }
+        
+        self.upVotesLbl.text = String(gallery.ups ?? 0)
+        self.viewsLbl.text = String(gallery.views ?? 0)
+        self.commentsLbl.text = String(gallery.commentCount ?? 0)
     }
 
     /**
