@@ -3,16 +3,6 @@ platform :ios, '13.6'
 target 'ImgurAPIDemo' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-  # Pods for ImgurAPIDemo
-
-  target 'ImgurAPIDemoTests' do
-    inherit! :search_paths
-    pod 'AlamofireImage', '~> 4.1.0'
-  end
-
-  target 'ImgurAPIDemoUITests' do
-    # Pods for testing
-  end
-
+	pod 'Alamofire', '~> 5.4.1'
+	pod 'AlamofireImage', '~> 4.1.0'
 end
