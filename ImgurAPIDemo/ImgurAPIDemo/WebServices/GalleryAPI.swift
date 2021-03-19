@@ -19,14 +19,7 @@ class GalleryAPI: NSObject {
     
     
     //MARK: Requests
-    func getTopGalleriesFromLast(fromDateInterval dateInterval: DateIntervals, currentController controller: UIViewController, continueFromPage page: Int = 1, completion: @escaping(_ : Array<Gallery?>) -> Void) -> Void {
-        
-        //Add activity controller to controller who called service
-//        var spinner = SpinnerViewController()
-//        controller.addChild(spinner)
-//        spinner.view.frame = controller.view.frame
-//        controller.view.addSubview(spinner.view)
-//        spinner.didMove(toParent: controller)
+    func getTopGalleriesFromLast(fromDateInterval dateInterval: DateIntervals, continueFromPage page: Int = 0, completion: @escaping(_ : Array<Gallery?>) -> Void) -> Void {
         
         //Fill all URL parameters and variables
         var urlWithParams : String = "https://api.imgur.com/3/gallery/{{section}}/{{sort}}/{{window}}/{{page}}?showViral={{showViral}}&mature={{showMature}}&album_previews={{albumPreviews}}"

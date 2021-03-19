@@ -19,7 +19,7 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
     private var lastQueuedPage: Int = 0
     private var activityView: SpinnerView?
     private var activityIndicator =  UIActivityIndicatorView()
-
+    private var isFetchingNewData = false
     
     // MARK: Outlets
     @IBOutlet var titleLbl: UILabel!
@@ -41,7 +41,7 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
 
         showActivityIndicator()
         //Get gallery data
-        GalleryAPI().getTopGalleriesFromLast(fromDateInterval: .day, currentController: self, completion: { (resultGalleries) in
+        GalleryAPI().getTopGalleriesFromLast(fromDateInterval: .day, completion: { (resultGalleries) in
             self.galleriesList = resultGalleries
             self.hideActivityIndicator()
         })
@@ -60,8 +60,10 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
         refreshControl!.addTarget(self, action: #selector(refreshGallery), for: .valueChanged)
         self.topWeeklyGalleriesCollectionView.refreshControl = refreshControl!
         //Register custom cell
-        let nib = UINib(nibName: "GalleryCollectionViewCell", bundle:nil)
-        self.topWeeklyGalleriesCollectionView.register(nib, forCellWithReuseIdentifier: "galleryCell")
+        let galleryCellNib = UINib(nibName: "GalleryCollectionViewCell", bundle:nil)
+        self.topWeeklyGalleriesCollectionView.register(galleryCellNib, forCellWithReuseIdentifier: "galleryCell")
+        let fetchingDataCell = UINib(nibName: "LoadingGalleriesCollectionViewCell", bundle:nil)
+        self.topWeeklyGalleriesCollectionView.register(fetchingDataCell, forCellWithReuseIdentifier: "loadingGalleriesCell")
         
 
         
@@ -91,20 +93,31 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
     }
     
     // MARK: Refresh and Fetch collectionView data from API
-    func fecthNewGalleriesData() {
-        lastQueuedPage += 1
-        GalleryAPI().getTopGalleriesFromLast(fromDateInterval: .day, currentController: self, continueFromPage: lastQueuedPage, completion: { (resultGalleries) in
-            self.galleriesList = resultGalleries
+    func fecthNewGalleriesDataFromNextPage() {
+        self.isFetchingNewData = true
+        self.lastQueuedPage += 1
+        self.topWeeklyGalleriesCollectionView.reloadSections(IndexSet(integer: 1))
+        print("Fetching new data")
+        GalleryAPI().getTopGalleriesFromLast(fromDateInterval: .day, continueFromPage: self.lastQueuedPage, completion: { (resultGalleries) in
+            //Append new fetched data
+            self.galleriesList?.append(contentsOf: resultGalleries)
+
+            //Stop activityIndicator animation
             let spinnerView = self.refreshControl!.subviews.filter() { $0 is SpinnerView }
             if let refreshControlSpinner = spinnerView.first as? SpinnerView {
                 refreshControlSpinner.stopAnimating()
             }
+
+            //Remove fetching tag
+            self.isFetchingNewData = false
+            
+            print("New data fetched")
         })
     }
     
     @objc func refreshGallery() {
         lastQueuedPage = 0
-        GalleryAPI().getTopGalleriesFromLast(fromDateInterval: .day, currentController: self, continueFromPage: lastQueuedPage, completion: { (resultGalleries) in
+        GalleryAPI().getTopGalleriesFromLast(fromDateInterval: .day, continueFromPage: lastQueuedPage, completion: { (resultGalleries) in
             self.galleriesList = resultGalleries
             self.refreshControl!.endRefreshing()
         })
@@ -118,33 +131,70 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
     
     // MARK: CollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(galleriesList!.count)
-        return galleriesList!.count
+        if (section == 0) {
+            return galleriesList!.count
+        } else if (section == 1 && self.isFetchingNewData) {
+            return 1
+        }
+        return 0
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryCell", for: indexPath) as? GalleryCollectionViewCell else {
-            return UICollectionViewCell()
+        if (indexPath.section == 0) {
+            guard let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryCell", for: indexPath) as? GalleryCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.setupCellData(gallery: galleriesList![indexPath.row])
+            return cell
         }
-        cell.setupCellData(gallery: galleriesList![indexPath.row])
-        return cell
+        else if (indexPath.section == 1) {
+            guard let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingGalleriesCell", for: indexPath) as? LoadingGalleriesCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.loadingDataActivityIndicator.startAnimating()
+            return cell
+        }
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        //Check user device type
-        let isUserOnPhone = (UIDevice.current.userInterfaceIdiom == .phone)
-        
-        //Set layout according to device type
-        let cellsAcross: CGFloat = isUserOnPhone ? 1 : 2
-        let spaceBetweenCells: CGFloat = 20
-        let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
-        return CGSize(width: dim, height: dim)
+        //ContentCell
+        if (indexPath.section == 0) {
+            //Check user device type
+            let isUserOnPhone = (UIDevice.current.userInterfaceIdiom == .phone)
+            
+            //Set layout according to device type
+            let cellsAcross: CGFloat = isUserOnPhone ? 1 : 2
+            let spaceBetweenCells: CGFloat = 20
+            let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+            return CGSize(width: dim, height: dim)
+        } //LoadingData cell
+        else if (indexPath.section == 1) {
+            let collectionViewWidth = self.topWeeklyGalleriesCollectionView.frame.width
+            return CGSize(width: collectionViewWidth, height: 200)
+        }
+
+        return CGSize(width: 0, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
-    
 
+    //MARK: ScrollView and IniniteScroll
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let collectionHeight = self.topWeeklyGalleriesCollectionView.frame.height
+        if (!isFetchingNewData && (offsetY >= (contentHeight - collectionHeight))) {
+            self.topWeeklyGalleriesCollectionView.reloadSections(IndexSet(integer: 1))
+            fecthNewGalleriesDataFromNextPage()
+        }
+    }
 }
