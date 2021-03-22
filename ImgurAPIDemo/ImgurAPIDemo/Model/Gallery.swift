@@ -15,7 +15,7 @@ final class Gallery: NSObject, Codable {
     var ups: Int?
     var views: Int?
     var commentCount: Int?
-    var coverImage: Data?
+    var coverImage: GalleryImage?
     var images: Array<GalleryImage>?
     
 }

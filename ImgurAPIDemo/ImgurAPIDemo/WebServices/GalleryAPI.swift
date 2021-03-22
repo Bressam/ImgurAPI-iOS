@@ -15,8 +15,16 @@ class GalleryAPI: NSObject {
         case day, week, month, year, all
     }
     
+    //DispatchGroup to sync multiple requests
     private var dispatchGroup: DispatchGroup = DispatchGroup()
     
+    //AlamoFireImage download to use cache and support more image types
+    let imageDownloader = ImageDownloader(
+        configuration: ImageDownloader.defaultURLSessionConfiguration(),
+        downloadPrioritization: .fifo,
+        //maximumActiveDownloads: 4,
+        imageCache: AutoPurgingImageCache()
+    )
     
     //MARK: Requests
     func getTopGalleriesFromLast(fromDateInterval dateInterval: DateIntervals, continueFromPage page: Int = 0, completion: @escaping(_ : Array<Gallery?>) -> Void) -> Void {
@@ -41,10 +49,12 @@ class GalleryAPI: NSObject {
         AF.request(urlWithParams, method: .get, headers: headers).responseJSON { (response) in
             switch response.result {
             case .success:
+                //print(response.value)
                 galleries = self.parseGalleriesData(data: response.data)
                 break
             case let .failure(error):
                 print(error)
+                galleries = []
                 break
             }
             self.dispatchGroup.leave()
@@ -60,15 +70,31 @@ class GalleryAPI: NSObject {
     func getImageDataFrom(link imageLink: String?, completion: @escaping(_ imageData: Data?) -> Void) -> Void {
         //register request on dispatchgroup
         self.dispatchGroup.enter()
-        if let link = imageLink {
-            AF.request(link).responseImage { (response) in
+        if let link = imageLink, let urlLink = URL(string: link) {
+            AF.request(urlLink).responseImage { (response) in
                 self.dispatchGroup.leave()
                 if case .success(let image) = response.result {
+                    //print(response.value)
                     //print("image downloaded: \(image)")
-                    completion(image.pngData())
-                    //completion(response.data)
+                    //completion(image.pngData())
+                    completion(response.data)
+                } else {
+                    completion(nil)
                 }
             }
+//            let linkUrlRequest = URLRequest(url: urlLink)
+//            imageDownloader.download(linkUrlRequest, completion:  { response in
+//                self.dispatchGroup.leave()
+//                print(response.request)
+//                print(response.response)
+//                debugPrint(response.result)
+//                
+//                if case .success(let image) = response.result {
+//                    print(image)
+//                }
+//                
+//                completion(response.data)
+//            })
         }
     }
     
@@ -89,8 +115,9 @@ class GalleryAPI: NSObject {
                 if let currentGallery = gallery, let galleryImages = currentGallery.images {
                     let coverImage = galleryImages.filter { $0.id == currentGallery.cover }
                     if let coverImageFromGallery = coverImage.first {
+                        currentGallery.coverImage = coverImageFromGallery
                         self.getImageDataFrom(link: coverImageFromGallery.isMp4Format() ? coverImageFromGallery.gifLink : coverImageFromGallery.link,completion: { (imageData) in
-                            currentGallery.coverImage = imageData
+                            currentGallery.coverImage?.imageData = imageData
                         })
                     }
                 }

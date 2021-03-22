@@ -148,7 +148,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OUR-jq-yr6">
                         <rect key="frame" x="0.0" y="0.0" width="431" height="222"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d42-22-fsf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d42-22-fsf">
                                 <rect key="frame" x="0.0" y="0.0" width="431" height="222"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnq-mx-mKk">
@@ -171,9 +171,9 @@
                         <constraints>
                             <constraint firstItem="cnq-mx-mKk" firstAttribute="centerY" secondItem="OUR-jq-yr6" secondAttribute="centerY" id="5cp-cw-Yt9"/>
                             <constraint firstItem="d42-22-fsf" firstAttribute="height" secondItem="OUR-jq-yr6" secondAttribute="height" id="Jnv-cp-zhp"/>
-                            <constraint firstItem="d42-22-fsf" firstAttribute="centerX" secondItem="OUR-jq-yr6" secondAttribute="centerX" id="XQP-jl-oLF"/>
+                            <constraint firstItem="d42-22-fsf" firstAttribute="centerX" secondItem="OUR-jq-yr6" secondAttribute="centerX" priority="250" id="XQP-jl-oLF"/>
                             <constraint firstItem="cnq-mx-mKk" firstAttribute="centerX" secondItem="OUR-jq-yr6" secondAttribute="centerX" id="cQH-nS-v4e"/>
-                            <constraint firstItem="d42-22-fsf" firstAttribute="width" secondItem="OUR-jq-yr6" secondAttribute="width" id="gIg-1o-qP8"/>
+                            <constraint firstItem="d42-22-fsf" firstAttribute="width" secondItem="OUR-jq-yr6" secondAttribute="width" priority="250" id="gIg-1o-qP8"/>
                             <constraint firstItem="d42-22-fsf" firstAttribute="centerY" secondItem="OUR-jq-yr6" secondAttribute="centerY" id="mGk-Oy-pXB"/>
                         </constraints>
                     </view>

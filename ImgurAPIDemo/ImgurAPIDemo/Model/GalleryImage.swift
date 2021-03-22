@@ -13,6 +13,7 @@ final class GalleryImage: NSObject, Codable {
 
     var id: String?
     var title: String?
+    var imageData: Data?
     var imageDescription: String?
     var type: String?
     var link: String?

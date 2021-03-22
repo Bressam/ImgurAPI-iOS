@@ -7,12 +7,22 @@
 
 import UIKit
 
-class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+protocol GalleryCellProtocol {
+    func reloadCellData(link: String, completion: @escaping(_ newData: Data?) -> Void)
+}
+
+class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GalleryCellProtocol  {
 
     // MARK: Variables
     private var galleriesList: Array<Gallery?>? = [] {
         didSet {
-            self.topWeeklyGalleriesCollectionView.reloadData()
+            if(galleriesList != nil && galleriesList?.count != 0) {
+                self.hideErrorScreen()
+                self.topWeeklyGalleriesCollectionView.reloadData()
+            }
+            else {
+                self.showErrorScreen()
+            }
         }
     }
     private var refreshControl: UIRefreshControl?
@@ -24,6 +34,9 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
     // MARK: Outlets
     @IBOutlet var titleLbl: UILabel!
     @IBOutlet var topWeeklyGalleriesCollectionView: UICollectionView!
+    @IBOutlet var errorView: UIView!
+    @IBOutlet var errorMsgLbl: UILabel!
+    @IBOutlet var errorMsgReloadBtn: UIButton!
     
     // MARK: View Lifecycle
     override func viewDidLoad() {
@@ -48,6 +61,9 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
     }
     
     func setup() {
+        //No error is shown before finishing fetching data
+        self.hideErrorScreen()
+        
         //Configure custom activityView on collectionView RefreshControll
         self.refreshControl = UIRefreshControl()
         let activityView = SpinnerView(frame: CGRect(x: (UIScreen.main.bounds.width/2) - 32, y: self.refreshControl!.center.y - 16, width: 32, height: 32), image: UIImage(named: "reload_icon")!)
@@ -74,6 +90,34 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
         self.activityView = SpinnerView(frame: CGRect(x: (UIScreen.main.bounds.width/2  - 20), y: (UIScreen.main.bounds.height/2 - 20), width: 40, height: 40), image: UIImage(named: "reload_icon")!)
     }
 
+    func showErrorScreen() {
+        self.topWeeklyGalleriesCollectionView.isHidden = true
+        self.errorMsgLbl.text = MessageConstants.CONNECTION_ERROR
+        self.errorView.isHidden = false
+        self.errorMsgReloadBtn.isHidden = false
+    }
+    
+    func hideErrorScreen() {
+        self.topWeeklyGalleriesCollectionView.isHidden = false
+        self.errorView.isHidden = true
+        self.errorMsgReloadBtn.isHidden = true
+    }
+    
+    //MARK: Button action
+    @IBAction func reloadTableData(_ sender: Any) {
+        showActivityIndicator()
+        self.refreshGallery(fromErrorMessage: true)
+    }
+    
+    
+    //MARK: CellDelegate
+    func reloadCellData(link: String, completion: @escaping (Data?) -> Void) {
+        print("reload")
+        GalleryAPI().getImageDataFrom(link: link) { (newImageData) in
+            completion(newImageData)
+        }
+    }
+    
     
     //MARK: Activity
     
@@ -115,11 +159,18 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
         })
     }
     
-    @objc func refreshGallery() {
+    @objc func refreshGallery(fromErrorMessage: Bool = false) {
+        if (fromErrorMessage) {
+            self.showActivityIndicator()
+            self.errorMsgReloadBtn.isHidden = true
+        }
         lastQueuedPage = 0
         GalleryAPI().getTopGalleriesFromLast(fromDateInterval: .day, continueFromPage: lastQueuedPage, completion: { (resultGalleries) in
             self.galleriesList = resultGalleries
             self.refreshControl!.endRefreshing()
+            if (fromErrorMessage) {
+                self.hideActivityIndicator()
+            }
         })
         
         //Find customView to start animation. Could also search for view with tag since SpinnerView has a constant tag value already set
@@ -149,6 +200,7 @@ class TopWeeklyGalleriesViewController: UIViewController, UICollectionViewDelega
                 return UICollectionViewCell()
             }
             cell.setupCellData(gallery: galleriesList![indexPath.row])
+            cell.galleryCellDelegate = self
             return cell
         }
         else if (indexPath.section == 1) {
